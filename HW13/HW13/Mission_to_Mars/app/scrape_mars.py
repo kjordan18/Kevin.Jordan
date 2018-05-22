@@ -47,7 +47,7 @@ def scrape():
     img_url_rel = img_soup.find('figure', class_='lede').find('img')['src']
 
     # Set featured_image
-    mars["featured_image"] = f'https://www.jpl.nasa.gov{img_url_rel}'
+    mars.featured_image = f'https://www.jpl.nasa.gov{img_url_rel}'
 
     # Retrieve Mars Weather
     url = 'https://twitter.com/marswxreport?lang=en'
@@ -61,7 +61,7 @@ def scrape():
     mars_weather_tweet = weather_soup.find('div', attrs={"class": "tweet", "data-name": "Mars Weather"})
 
     # Set weather
-    mars["weather"] = mars_weather_tweet.find('p', 'tweet-text').get_text()
+    mars.weather = mars_weather_tweet.find('p', 'tweet-text').get_text()
 
     # Retrieve Mars Hemisphere Data
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -96,7 +96,7 @@ def scrape():
         time.sleep(1)
 
     # Set hemispheres
-    mars["hemispheres"] = hemisphere_image_urls
+    mars.hemispheres = hemisphere_image_urls
 
     df = pd.read_html('http://space-facts.com/mars/')[0]
     df.columns = ['description', 'value']
